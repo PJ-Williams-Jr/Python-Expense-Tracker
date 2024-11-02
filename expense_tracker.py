@@ -1,9 +1,11 @@
 from expense import Expense
-
+import calendar
+import datetime
 
 def main():
     
     expense_file_path = "expenses.csv"
+    budget = 2000
 
     # Get user input for expense.
     # expense = get_user_expense()
@@ -12,7 +14,7 @@ def main():
     # save_expense_to_file(expense, expense_file_path)
     
     # Read file and summarize expense.
-    summarize_expenses(expense_file_path)
+    summarize_expenses(expense_file_path, budget)
 
 
 def get_user_expense():
@@ -50,7 +52,7 @@ def save_expense_to_file(expense: Expense, expense_file_path):
         file.write(f"{expense.name},{expense.category},{expense.amount}\n")
 
 
-def summarize_expenses(expense_file_path):
+def summarize_expenses(expense_file_path, budget):
     print("Summarizing user expense.")
     expenses: list[Expense] = []
     with open(expense_file_path, "r") as file:
@@ -71,6 +73,25 @@ def summarize_expenses(expense_file_path):
     print("Expenses by category:")
     for key, amount in amount_by_category.items():
         print(f"\t{key}: ${amount:.2f}")
+
+    total_spent = sum([x.amount for x in expenses])
+    print(f"Total spent: ${total_spent:.2f}")
+
+    remaining_budget = budget - total_spent
+    print(f"Budget remaining: ${remaining_budget:.2f}")
+    
+    # Get current date
+    now = datetime.datetime.now()
+
+    # Get the number of days in the current month
+    days_in_month = calendar.monthrange(now.year, now.month)[1]
+
+    # Calculate remaining number of days in month
+    remaining_days = days_in_month - now.day
+    print(f"Remaining days in the current month: {remaining_days}")
+
+    daily_budget = remaining_budget / remaining_days
+    print(f"Budget per day: ${daily_budget:.2f}")
 
 
 if __name__ == "__main__":
