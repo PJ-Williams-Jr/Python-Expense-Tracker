@@ -8,10 +8,10 @@ def main():
     budget = 2000
 
     # Get user input for expense.
-    # expense = get_user_expense()
+    expense = get_user_expense()
 
     # Write expense to file.
-    # save_expense_to_file(expense, expense_file_path)
+    save_expense_to_file(expense, expense_file_path)
     
     # Read file and summarize expense.
     summarize_expenses(expense_file_path, budget)
