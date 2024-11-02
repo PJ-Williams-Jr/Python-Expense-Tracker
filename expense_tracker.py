@@ -12,7 +12,7 @@ def main():
     save_expense_to_file(expense, expense_file_path)
     
     # Read file and summarize expense.
-    summarize_expenses()
+    summarize_expenses(expense_file_path)
 
 
 def get_user_expense():
@@ -52,6 +52,14 @@ def save_expense_to_file(expense: Expense, expense_file_path):
 
 def summarize_expenses(expense_file_path):
     print("Summarizing user expense.")
+    expenses = []
+    with open(expense_file_path, "r") as file:
+        lines = file.readlines()
+        for line in lines:
+            expense_name, expense_category, expense_amount = line.strip().split(",")
+            line_expense = Expense(name=expense_name, category=expense_category, amount=float(expense_amount))
+            expenses.append(line_expense)
+
 
 
 if __name__ == "__main__":
