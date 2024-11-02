@@ -3,11 +3,13 @@ from expense import Expense
 
 def main():
     
+    expense_file_path = "expenses.csv"
+
     # Get user input for expense.
     expense = get_user_expense()
-    print(expense)
+
     # Write expense to file.
-    save_expense_to_file()
+    save_expense_to_file(expense, expense_file_path)
     
     # Read file and summarize expense.
     summarize_expenses()
@@ -42,11 +44,13 @@ def get_user_expense():
             print("Invalid category. Please enter a valid category number.")
 
 
-def save_expense_to_file():
-    print("Saving user expense.")
+def save_expense_to_file(expense: Expense, expense_file_path):
+    print(f"Saving user expense: {expense} to {expense_file_path}")
+    with open(expense_file_path, "a") as file:
+        file.write(f"{expense.name},{expense.category},{expense.amount}\n")
 
 
-def summarize_expenses():
+def summarize_expenses(expense_file_path):
     print("Summarizing user expense.")
 
 
